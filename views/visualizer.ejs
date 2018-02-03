@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visualizer</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script src="/javascript/search_genome.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">HealthCoin</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/about">About</a></li>
+            <li><a href="/visualizer">Visualizer</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">My Balance: <%= balance %> HC</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <button type="button" id="miningbutton" class="btn btn-primary btn-lg">Mining...</button>
+    <script type="text/javascript">
+        $('#miningbutton').click(function() {
+            $.getJSON('/getDNA', function(data) {
+                // We run the mining function on the data
+                var answer = findGenome(data.genome, data.target, data.matchingRate);
+                // Once the answer is found, we post the answer
+                $.post('/postanswer', answer, function(response) {
+                    // Do something
+                });
+            });
+        });
+    </script>
+
+    <br>
+    <h2>Current chain:</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Block ID</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Transactions</th>
+          <th scope="col">Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">2</td>
+          <td>Today</td>
+          <td>1</td>
+          <td>0.48mb</td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>Yesterday</td>
+          <td>2</td>
+          <td>0.48mb</td>
+        </tr>
+        <tr>
+          <th scope="row">0</th>
+          <td>Dec. 25</td>
+          <td>1</td>
+          <td>0.48mb</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <script>
+      feather.replace()
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Engagement+</title>
+    <base href="/">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  </head>
+    <!-- /*white bg-black is-in*/ -->
+    <header class="cf ph3">
+      <h1 class="fl-ns mb0 mt3 pt1"><a href="" class="link green hover-dark-green">TD Bank Engagement<span class="dib-l dib-m dn"></span>+</a></h1>
+
+      <nav class="fr-ns">
+        <a href="/visualizer" class="b link dark-gray hover-green" style="padding-bottom: .95rem;"> <i data-feather="eye"></i></a>
+        <a href="/about" class="b link dark-gray hover-green ml3 mr4"><i data-feather="help-circle"></i></a>
+
+        <div class="dib">
+          <img src="https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto,fl_lossy/fc/3039860-inline-i-1-higid-ef-labs-employee-handbook.jpg" class="br-100 h2 w2 ba dib" alt="avatar">
+          <ul class="dib list pl0">
+            <li class="link f7 gray">Nick Foles</li>
+            <li class="link b">Score: 27</li>
+          </ul>
+        </div>
+
+      </nav>
+    </header>
+
+
+        <!-- Adding a new job -->
+    <div class="center pv3 ph3-l ph2 flex items-center bb bt b--black-10">
+
+        <form method="POST" action="uploadFile" enctype="multipart/form-data" class="">
+
+          <input id="upload" type="file" class="input-file" name="file-upload"></input>
+
+          <label for="file-upload" class="tc b mh3 ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white">
+            <span class="pr1">Upload genome file</span>
+            <i data-feather="upload" width="16" class="w1 v-mid"></i>
+          </label>
+
+        </form>
+
+        <div class="flex justify-between flex-grow-1 justify-around items-center">
+          <form class="flex justify-between flex-grow-1 justify-around items-center" action="/postnewjob" method="post">
+              <div class="">
+                <!-- <p>Name your sequence:</p>
+                <input class="" type="text" name="inputName" placeholder="Bob's job"> -->
+
+                <label for="inputName" class="f7 b ttu gray db mb2 mt1">Prompts</label>
+                <input name="inputName" id="inputName" placeholder="Bob's job" class="input-reset ba b--black-20 pa3 db" type="text" aria-describedby="inputName-desc" style="margin-bottom: 1.80rem;">
+                <!-- <small id="inputName-desc" class="f6 black-60 db mb2">Helper text for the form control.</small> -->
+
+              </div>
+              <div class="">
+                <label for="inputGenome" class="f7 b ttu gray db mb2 mt1">Genome Type:</label>
+                <input class="input-reset ba b--black-20 pa3  db" type="text" aria-describedby="inputName-desc" type="text" name="inputGenome" placeholder="AC, AA, TC, GC..." style="margin-bottom: 1.80rem;">
+              </div>
+
+              <div class="">
+
+                <label for="inputCost" class="f7 b ttu gray db mb2 mt1">Payment<span class="normal black-60">(HealthCoins)</span></label>
+                <input name="inputCost" id="inputCost" class="input-reset ba b--black-20 pa3 db" type="number" aria-describedby="inputCost-desc" style="margin-bottom: 1.80rem;">
+                <!-- <small id="inputCost-desc" class="f6 black-60 db mb2"><%= error %></small> -->
+              </div>
+
+        </div>
+        <div class="flex justify-between flex-grow-1 justify-around items-center">
+          <button type="submit" class="tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white" name="new-job">Submit for sequencing</button>
+        </div>
+          </form>
+    </div>
+
+        <article class="mw6 center tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10">
+      <div class="tc">
+
+        <h1 class="f4 mt0">Current Customer</h1>
+
+      </div>
+      <p class="lh-copy measure center f6 black-70 mt3">
+      </p><form action="/posttransaction" method="post">
+
+        <div class="mb4">
+          <label class="f7 b ttu gray db mb2 mt1">Person's username:</label>
+          <input class="tc f6 input-reset w-100 ba b--black-20 pa3 db" type="text" name="inputWallet" placeholder="Jane Doe">
+        </div>
+
+        <div class="mb4">
+          <label class="f7 b ttu gray db mb2 mt1">Amount:</label>
+          <input class="tc input-reset w-100 ba b--black-20 pa3 db" type="text" name="inputAmount" placeholder="100 HC">
+        </div>
+
+        <button type="submit" class="tc b ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white" name="new-job">Make transaction</button>
+      </form>
+
+
+    </article>
+
+    <div class="pa3 tl">
+        <h2 class="mb0 mt5">Try these prompts:</h2>
+        <table class="w-100 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
+          <tbody>
+            <tr class="striped--near-white">
+              <th scope="col" class="pv2 ph3 ttu tl f7 fw6 tt">Sequence Name</th>
+              <th scope="col" class="f7 ttu fw6 pv2 ph3">Date Submitted</th>
+              <th scope="col" class="f7 ttu fw6 pv2 ph3">Genome</th>
+              <th scope="col" class="f7 ttu fw6 pv2 ph3">Payment (in HealthCoins)</th>
+              <th scope="col" class="f7 ttu fw6 pv2 ph3">Status</th>
+            </tr>
+            <% for(var i=0; i < items.length; i++) { %>
+               <tr class="striped--near-white">
+                 <td class="pv2 ph3"><%= items[i].name %></td>
+                 <td class="pv2 ph3"><%= items[i].createdAt %></td>
+                 <td class="pv2 ph3"><%= items[i].genome %></td>
+                 <td class="pv2 ph3"><%= items[i].cost %></td>
+
+                 <% if (items[i].status === 'Incomplete') { %>
+                  <td class="pv2 ph3"><%= items[i].status %></td>
+                  <!-- <td class="pv2 ph3">Compute this!</td> -->
+
+                <%} else {%>
+                  <td class="pv2 ph3 trash"><%= items[i].status %></td>
+                <% } %>
+
+               </tr>
+            <% } %>
+          </tbody>
+          </table>
+      <div>
+    </div>
+
+
+
+
+
+    <div class="center ph3-l ph2">
+      <footer class="pv4 cf">
+        <div class="w-100 mb4 bb pb5-l pb4 cf">
+          <!-- <h4 class="mt3-l mt0 mb0 f1-l f2-m f3 fl">Get in touch</h3>
+          <span class="f-subheadline-l fr">👋</span> -->
+        </div>
+        <p class="gray">Your employee ID is <%= userID %>.</p>
+
+        <h3>Engagement+</h3>
+
+        <p class="gray">© Engagement+, no rights reserved.</p>
+
+        <div class="w-100 mb4 pb5-l bb b--black-10 pb4 cf">
+          <h4 class="mt3-l mt0 mb0 f2-l f3-m f4 fl">Built at WUFT Hacks</h3>
+          <span class="f-subheadline-l f2-l f3-m f4 fr">👋</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      feather.replace()
+    </script>
+  </body>
+</html>

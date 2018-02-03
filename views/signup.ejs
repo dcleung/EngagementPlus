@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Engagement+</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  </head>
+  <body>
+
+    <header class="cf ph3 tc center">
+      <h1 class="fl-ns w-100 mb0 tc mt3 pt1"><a href="" class="link green">Engagement<span class="dib-l dib-m dn"></span>+</a></h1>
+
+      <p class="gray">Engagement+</p>
+
+    </header>
+
+
+
+    <main class="pa4 black-80">
+      <form class="measure center" action="/checkaccount" method="post">
+        <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+          <legend class="f3 fw6 ph0 mh0">Employee Sign In</legend>
+          <div class="mt3">
+            <label class="db fw6 lh-copy f6" for="email-address">Employee ID</label>
+            <input class="pa2 input-reset ba bg-transparent w-100" type="text" name="loginUsername" id="loginUsername">
+          </div>
+          <div class="mv3">
+            <label class="db fw6 lh-copy f6" for="password">Password</label>
+            <input class="b pa2 input-reset ba bg-transparent w-100" type="password" name="loginPassword"  id="password">
+          </div>
+          <label class="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"> Remember me</label>
+        </fieldset>
+        <div class="">
+          <button class="tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white" type="submit" value="Sign in">Sign In</button>
+           <!-- <i data-feather="log-in" width="16px"></i> -->
+        </div>
+        <div class="lh-copy mt3">
+          <a href="#0" class="f6 link dim black db">Sign up</a>
+          <a href="#0" class="f6 link dim black db">Forgot your password?</a>
+        </div>
+        <small class="red"><%= error %></small>
+      </form>
+    </main>
+
+
+    <!-- <h5>Don't have an account? Sign up!</h5>
+
+   <div style="padding: 50px">
+       <form action="/postnewaccount" method="post">
+           <p>Username:</p>
+           <input class="input-field form-control" type="text" name="inputUsername">
+           <br>
+           <p>Email:</p>
+           <input class="input-field form-control" type="text" name="inputEmail">
+           <br>
+           <p>Name:</p>
+           <input class="input-field form-control" type="text" name="inputName">
+           <p>Password:</p>
+           <input class="input-field form-control" type="password" name="inputPassword">
+           <br>
+
+           <br>
+           <button type="submit" class="btn btn-primary" name="new-job">Sign me up!</button>
+       </form>
+   </div> -->
+
+
+
+
+    <script>
+      feather.replace()
+    </script>
+
+  </body>
+</html>
