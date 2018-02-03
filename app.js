@@ -28,17 +28,10 @@ app.use(function(req, res, next) {
 
 app.use(express.static(__dirname + '/public'));
 
-app.use('/postnewjob', routes.postJob);
 app.use('/about', routes.getAbout);
-app.use('/visualizer', routes.getVisualizer);
-app.use('/mine', routes.getMine);
 app.use('/postnewaccount', routes.postAccount);
 app.use('/checkaccount', routes.postCheck);
 app.use('/signup', routes.getSignup);
-app.use('/getDNA', routes.getDNA);
-app.use('/posttransaction', routes.postTransaction);
-app.use('/getMining', routes.getMining);
-
 
 // DEFAULT
 app.use('/', routes.getHome);

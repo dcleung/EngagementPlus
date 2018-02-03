@@ -6,9 +6,6 @@ var AWS = require('aws-sdk');
 var creds = require('./credentials.json');
 vogels.AWS.config.update({accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey, region: "us-east-1"});
 
-// Establish the "healthy" patient
-var test = ['AA', 'CG', 'TG', 'AC', 'AC', 'AA', 'TC', 'GC', 'TT', 'CT', 'AC', 'AG', 'AT'];
-
 var Account = vogels.define('Account', {
   hashKey : 'username',
 
@@ -143,108 +140,9 @@ var getHome = function(req, res) {
     })
 }
 
-/* GET mining page. */
-var getMine = function(req, res) {
-    res.render('mine.ejs', { name: 'Bob' , balance: '0', error: null});
-}
-
-/* GET visualizer page. */
-var getVisualizer = function(req, res) {
-    res.render('visualizer.ejs', { name: 'Bob' , balance: '0', error: null});
-}
-
 /* GET about page. */
 var getAbout = function(req, res) {
     res.render('about.ejs', { name: 'Bob' , balance: '0', error: null});
-}
-
-/* GET DNA problem */
-var getDNA = function(req, res) {
-    // Put the database call here
-    var dnaObj = new Object();
-    dnaObj.genome = "blahblahblahtacoblah";
-    dnaObj.targetGene = "blah"
-    res.send(JSON.stringify(dnaObj));
-}
-
-/* POST job page. */
-var postJob = function(req, res) {
-    var cost = req.body.inputCost;
-    var name = req.body.inputName;
-    var genome = req.body.inputGenome;
-
-    // Replace white spaces
-    genome = genome.replace(/\s/g, "");
-    var arr = genome.split(",");
-
-    var testEntries = [];
-    var inx = 0;
-
-    // Simple looping to verify solutions
-    for (j = 0; j < arr.length - 1; j++) {
-        if (arr[j] === test[j] && arr[j + 1] === test[j + 1]) {
-            inx = j;
-        }
-    }
-    for (i = 0; i < arr.length; i++) {
-        if (arr[i] != test[i]) {
-            testEntries.push(i);
-        }
-    }
-
-    if (!cost || !name) {
-        req.session.message = "missing inputs";
-        console.log("YOU ARE MISSING INPUTS");
-        res.redirect('/');
-    } else {
-        Job.create({
-                    cost : cost,
-                    name : name,
-                    genome : genome,
-                    status : 'Incomplete',
-                    inx : inx,
-                    ans : testEntries.toString(),
-                    user : req.session.username
-                }, function(err, post) {
-                    if (err) {
-
-                        res.render('index.ejs', { error: 'Error accessing database' , balance: '0'});
-                    } else {
-                        Account.update({username : req.session.username, value : {$add : -1 * cost}}, function (err, acc) {
-                          console.log('incremented age by 1', acc.get('value'));
-                        });
-                        req.session.message = null;
-                        res.redirect('/');
-                    };
-        });
-    }
-}
-
-/* POST job page. */
-var postTransaction = function(req, res) {
-    var recipient = req.body.inputWallet;
-    var amount = req.body.inputAmount;
-
-    if (!recipient || !amount) {
-        console.log("missing inputs")
-        req.session.message = "missing inputs";
-        res.redirect('/');
-    } else {
-        Transaction.create({
-                    block : 'Unconfirmed',
-                    confirmed : 'Unconfirmed',
-                    sender : req.session.username,
-                    receiver : recipient,
-                    amount : amount
-                }, function(err, post) {
-                    if (err) {
-                        res.render('index.ejs', { error: 'Error accessing database' , balance: '0'});
-                    } else {
-                        req.session.message = null;
-                        res.redirect('/');
-                    };
-        });
-    }
 }
 
 /* POST account page. */
@@ -309,106 +207,12 @@ var getSignup = function(req, res) {
     res.render('signup.ejs', { error: req.session.message });
 }
 
-/* receive the answer */
-var postanswer = function(req, res) {
-    var answer = req.body;
-    // Do something with the answer and thus block
-}
-
-var getDNA = function(req, res) {
-    res.send(JSON.stringify(req.app.jobObject));
-}
-
-var getMining = function(req, res) {
-    var numTransactions = 0;
-    var matches = [];
-    var inx = 0;
-    Transaction.scan().loadAll().exec(function(err, resp) {
-        if (resp) {
-            items = resp.Items;
-            var size = Object.keys(items).length;
-            var block = blockNum; // Assign to correct block
-            for (var i = 0; i < size; i++) {
-                console.log(items[i]);
-                if (items[i].attrs.confirmed === "Unconfirmed") {
-                    numTransactions++;
-                    var sender = items[i].attrs.sender;
-                    var receiver = items[i].attrs.receiver;
-                    var amount = items[i].attrs.amount;
-                    var newSenderAmt = -1 * amount;
-                    var newReceiverAmt = 0;
-                    Account.update({username : sender, value : {$add : newSenderAmt}}, function (err, acc) {
-                      console.log('incremented age by 1', acc.get('value'));
-                    });
-                    Account.update({username : receiver, value : {$add : amount}}, function (err, acc) {
-                      console.log('incremented age by 1', acc.get('value'));
-                    });
-                    Transaction.update({transID: items[i].attrs.transID, confirmed : "Confirmed", block : blockNum}, function(err, acc) {
-                        if (!err) {
-                            console.log('incremented age by 1', acc.get('unconfirmed'));
-                        } else {
-                            console.log("ERRORRRR");
-                        }
-                    });
-                }
-            }
-
-        }
-    });
-
-    Job.scan().loadAll().exec(function(err, resp2) {
-        if (resp2) {
-            items2 = resp2.Items;
-            var size = Object.keys(items2).length;
-            for (var j = 0; j < size; j++) {
-                if (items2[j].attrs.status === "Incomplete") {
-                    var jobID = items2[j].attrs.JobID;
-                    var res = items2[j].attrs.ans + "";
-                    inx = items2[j].attrs.inx;
-                    matches = res;
-                    Account.update({username : req.session.username, value : {$add : items2[j].attrs.cost}}, function (err, acc) {
-                          console.log('incremented age by 1', acc.get('value'));
-                    });
-                    Job.update({JobID : jobID, status : "Complete. Indices: " + res}, function(err, acc) {
-                        if (!err) {
-                            console.log('incremented age by 1', acc.get('status'));
-                        } else {
-                            console.log("ERRORRRR");
-                        }
-                    });
-                }
-            }
-        } else {
-            console.log("HELP IM HERE");
-        }
-    });
-
-    Block.create({
-        hash : blockNum,
-        previousHash : blockNum - 1,
-        start : inx,
-        transactions : numTransactions
-    }, function(err, post) {
-        console.log(post);
-        blockNum++;
-        res.redirect('/');
-    });
-
-}
-
 var routes = {
     getHome : getHome,
-    postJob : postJob,
-    getVisualizer : getVisualizer,
     getAbout : getAbout,
-    getMine : getMine,
     postAccount : postAccount,
     getSignup : getSignup,
     postCheck : postCheck,
-    getDNA : getDNA,
-    postanswer : postanswer,
-    postTransaction : postTransaction,
-    getMining : getMining
 };
 
 module.exports = routes;
