@@ -26,29 +26,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-var lineReader = require('readline').createInterface({
-  input: require('fs').createReadStream('../dna_subset.txt')
-});
-
-lineReader.on('line', function (line) {
-  console.log('Line from file:', line);
-});
-
-var fs = require("fs");
-var text = fs.readFileSync("../dna_subset.txt").toString('utf-8');
-var genome = text.split("\n")
-
-var fs = require("fs");
-var text = fs.readFileSync("../dna_subset.txt").toString('utf-8');
-var gene = text.split("\n")
-
-var matchingRate = 0.80;
-
-var jobObject = new Object();
-jobObject.genome = genome;
-jobObject.gene = gene;
-jobObject.matchingRate = matchingRate;
-app.jobObject = jobObject;
 app.use(express.static(__dirname + '/public'));
 
 app.use('/postnewjob', routes.postJob);
