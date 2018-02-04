@@ -17,7 +17,7 @@ function startStream(){
   //console.log(text);
   var out = document.getElementById('output');
   var out_text = document.getElementById('output_text');
-  var li = document.createElement("li");
+  var li = document.createElement("span");
   li.className += "list-group-item";
 
   li.appendChild(document.createTextNode(text));
