@@ -4,6 +4,7 @@
   <title>Engagement+</title>
   <base href="/">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://code.jquery.com/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 </head>
@@ -41,10 +42,10 @@
   </div>
 
   <div>
-    <label for="inputName" class="f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="w1 v-mid"></i></label>
+    <label for="inputName" class="f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="mick w1 v-mid red" id="microphone"></i></label>
 
-    <button id="start" class="tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white">Start</button>
-    <button id="stop" class="tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
+    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white">Start</button>
+      <button id="stop" class="stop tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
   </div>
 
   <h2>Output:</h2>
@@ -379,6 +380,8 @@
 });
 </script>
 <script>
+  feather.replace()
+
 var maps_options = {
   "async": true,
   "crossDomain": true,
@@ -393,6 +396,14 @@ var maps_options = {
 
 $(document).ready(function() {
   initMap();
+    $('.start').on('click',function(){
+    $('#microphone').addClass("Blink");
+  });
+
+  $('.stop').on('click',function(){
+    $('#microphone').removeClass("Blink");
+  });
+
 })
 
 var map;

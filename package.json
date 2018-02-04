@@ -20,6 +20,7 @@
     "feather-icons": "^4.5.0",
     "joi": "^13.1.1",
     "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.5",
     "tachyons": "^4.9.1",
