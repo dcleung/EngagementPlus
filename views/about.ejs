@@ -1,50 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>About</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-  </head>
+<head>
+  <title>Engagement+</title>
+  <base href="/">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script src="/javascript/speech_to_text.js"></script>
+
+</head>
+
+<header class="cf ph3">
+  <h1 class="fl-ns mb0 mt3 pt1"><a href="" class="link green hover-dark-green">Engagement<span class="dib-l dib-m dn"></span>+ Dashboard</a></h1>
+  <nav class="fr-ns">
+    <a href="/about" class="b link dark-gray hover-green ml3 mr4"><i data-feather="help-circle"></i></a>
+    <div class="dib">
+      <img src="https://www.famousbirthdays.com/faces/pederson-doug-image.jpg" class="br-100 h2 w2 ba dib" alt="avatar">
+      <ul class="dib list pl0">
+        <li class="link b f7">Doug Pederson</li>
+        <li class="link"><i>Associate</i></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+  <h2 class="ph3 fl-ns mb0 mt3 pt1"><span class="dib-l dib-m dn"></span>About</h2> <br> <br> <br>
+  <p class="ph3 fl-ns mb0 mt3 pt1"><span class="dib-l dib-m dn"></span>Engagement+ is a tool enabling TD Bank employees to better engage their customers.  Utilizing customer data and powerful analysis, Engagement+ is able to bring <b>focus</b> to the most important aspects of customer engagement.  Facebook, Twitter, and LinkedIn APIs are run through a Natural Language Processing (NLP) filter and used to develop a database of positive interests for each customer, allowing representatives to start personalized conversations.  Furthermore, with speech-to-text capabilities, Engagement+ is able to build further interests using the major conversation topics determined by NLP.  By establishing the two-layer interaction, our employees are able to make customer service more friendly and engaging.</p>
+
+  <p class="ph3 fl-ns mb0 mt3 pt1"><span class="dib-l dib-m dn"></span>Engagement+ also incorporates data analytics to empower employees to better understand their customer's banking history, enabling personalized advice.  Firstly, Engagement+ provides a heatmap of customer spending across the entire world.  This map helps employees better understand the context in which their customers spend money.  For example, knowing that a customer spends more money in other countries could lead to discussions about internaional banking credit cards. Furthermore, Engagement+ provides charts and graphs of important banking data while making <b> predictions </b> based on old spending habits.</p>
+
+    <p class="ph3 fl-ns mb0 mt3 pt1"><span class="dib-l dib-m dn"></span>Engagement+ was devevloped by Goat Team for Wharton Undergraduate Financial Tech Hackathon.  Goat Team is comprised of Ranwei Hu, Chris Fischer, Samuel Fleischer, and Derek Leung.</p>
+
+
+
   <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">HealthCoin</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="/about">About</a></li>
-            <li><a href="/visualizer">Visualizer</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">My Account</a></li>
-            <li><a href="#">My Balance: <%= balance %> HC</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-
-    <h2>About</h2>
-    <p> HealthCoin is a twist on cryptocurrency, integrating healthcare data analysis into crypto-mining.  Instead of solving the SHA-256 Hash function, miners will compute useful information about health data such identifying possible cancer mutations in gene sequences.  HealthCoin uses randomization, problem partitioning, and an optimized voting structure to prevent fraudulent computations.  Furthermore, the results of the genome comparison are easily verifiable, yet difficult to compute.  The economic structure for HealthCoin is based off of payment for genome analysis.  This covers the transaction fees, making the use of HealthCoin for distribution purposes highly efficient.</p>
-
-    <h2>Why?</h2>
-    <p> One of the biggest critiques of Bitcoin is the energy consumed in mining -- Bitcoin's daily energy consumption is equivalent to Ireland's daily use. This energy consumed isn't doing any useful work, it's simply computing the SHA-256 function.  Our twist is to create a hard, yet useful problem involving genomic sequencing in terms of identifying possible cancer mutations.</p>
-
-    <h2>How to get started</h2>
-    <p>Create an account and upload a genome.  This sequence can be the entire genome or even a subsection.  Our algorithms will automatically match up the starting points (this plays into the difficulty of the problem).</p>
 
     <script>
       feather.replace()
