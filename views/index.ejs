@@ -6,7 +6,6 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-  <script src="/build/tracking-min.js"></script>
 </head>
 
 <header class="cf ph3">
@@ -17,8 +16,8 @@
     <div class="dib">
       <img src="https://www.famousbirthdays.com/faces/pederson-doug-image.jpg" class="br-100 h2 w2 ba dib" alt="avatar">
       <ul class="dib list pl0">
-        <li class="link f7 gray"><%= name %></li>
-        <li class="link b">Score: <%= balance %></li>
+        <li class="link b f7"><%= name %></li>
+        <li class="link">Score: 0</li>
       </ul>
     </div>
   </nav>
@@ -28,15 +27,16 @@
   <div class="flex justify-between flex-grow-1 justify-around items-center">
     <div class="flex-end">
     <label for="inputName" class="f7 b ttu gray db mb2 mt1">Customer Account Number</label>
-    <input name="inputName" id="inputName" placeholder="100" class="input-reset ba b--black-20 pa3 db" type="text" aria-describedby="inputName-desc">
-    <label for="inputName" class="f7 b ttu white db mb2 mt1"> .</label>
-    <label for="file-upload" class="tc b mh3 ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white">
-      <span class="pr1">Search</span>
-      <i data-feather="search" width="16" class="w1 v-mid"></i>
-    </label>
-  </div>
 
-  <div>
+    <form id="searchform" method="get" accept-charset="utf-8">
+        <div class="input-group input-group-lg">
+            <input type="number" class="input-reset ba b--black-20 pa3 db" id="searchbox" name="account" placeholder="Account ID" aria-describedby="inputName-desc">
+          <button class="tc b mh3 ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white">
+            <span class="pr1">Search</span>
+            <i data-feather="search" width="16" class="w6 v-mid"></i>
+          </button>
+        </div>
+    </form>
 
   </div>
 
@@ -63,11 +63,11 @@
   </p><form action="/posttransaction" method="post">
 
     <div class="mb4">
-      <label class="f7 ttc dark-gray db mb2 mt1"><%= name %></label>
+      <label class="f7 ttc dark-gray db mb2 mt1"><b>Account ID:</b> <%= accountNum %></label>
     </div>
 
     <div class="mb4">
-      <label class="f7 b ttu dark-gray db mb2 mt1">Address:</label>
+      <label class="f7 b ttc dark-gray db mb2 mt1">Address:</label>
     </div>
 
     <button type="submit" class="tc b ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white" name="new-job">Make transaction</button>

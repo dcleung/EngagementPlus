@@ -5,7 +5,9 @@ var Joi = require('joi');
 var AWS = require('aws-sdk');
 var creds = require('./credentials.json');
 vogels.AWS.config.update({accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey, region: "us-east-1"});
+var request = require('request');
 
+// Employee Accounts Table
 var Account = vogels.define('Account', {
   hashKey : 'username',
 
@@ -17,7 +19,7 @@ var Account = vogels.define('Account', {
     email   : Joi.string().email(),
     name    : Joi.string(),
     password : Joi.string(),
-    value : Joi.number()
+    value : Joi.number() // Possible ranking of employees?
   }
 });
 
@@ -39,40 +41,9 @@ var Job = vogels.define('Job', {
   }
 });
 
-var Block = vogels.define('Block', {
-  hashKey : 'hash',
-
-  timestamps : true,
-
-  schema : {
-    hash : Joi.number(),
-    previousHash : Joi.number(),
-    start      : Joi.number(),
-    transactions : Joi.number()
-  }
-});
-
-var Transaction = vogels.define('Transaction', {
-  hashKey : 'transID',
-
-  timestamps : true,
-
-  schema : {
-    transID : vogels.types.uuid(),
-    block : Joi.string(),
-    confirmed : Joi.string(),
-    timestamp : Joi.number(),
-    sender : Joi.string(),
-    receiver : Joi.string(),
-    amount : Joi.number()
-  }
-});
-
 vogels.createTables({
     'Account' : {readCapacity: 1, writeCapacity: 10},
-    'Job' : {readCapacity: 1, writeCapacity: 10},
-    'Block' : {readCapacity: 1, writeCapacity: 10},
-    'Transaction' : {readCapacity: 1, writeCapacity: 10},    
+    'Job' : {readCapacity: 1, writeCapacity: 10}   
 }, function (err) {
   if(err) {
     console.log('Error creating tables', err);
@@ -84,8 +55,8 @@ var blockNum = 0;
 
 /* GET home page. */
 var getHome = function(req, res) {
-    console.log(req.body)
-    console.log(req.param('id'))
+
+    // Not Signed in 
     if (!req.session.username) {
         res.render('signup.ejs', {error : null, userID : req.session.userID });
     }
@@ -96,48 +67,54 @@ var getHome = function(req, res) {
         }
     });
 
-    Job.scan().loadAll().exec(function(err, resp) { // .where('user').equals(req.session.username)
+    console.log(req.query.account);
+
+    var accountNum = req.query.account;
+
+    var queryURL = 'https://api-wufthacks.xlabs.one:8243/td/account/V1.0.0/account/' + accountNum;
+    console.log(queryURL)
+
+    var options = { method: 'GET',
+      url: queryURL,
+      headers: 
+       { 'Postman-Token': 'f0417177-1e0a-c509-2b12-952e6df17102',
+         'Cache-Control': 'no-cache',
+         Authorization: 'Bearer 00670285-a115-38d5-8b22-f21557b7e17d',
+         'X-Api-Key': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnV2ZXNoZWVyYW4iLCJleHAiOjE1MTg1NjEyNTR9.kTlsWaJafTDX3KThRyI11xj_LoWsBLavOZXLuajzvQ5VSCiaXZZSTZMpnzsiChxiMnxhPj4l5yy1gSaClxklzA',
+         Accept: 'application/json' } };
+
+    request(options, function (error, response, body) {
+        if (error) {
+            throw new Error(error);
+        } else {
+            console.log(body);
+            Job.scan().loadAll().exec(function(err, resp) { // .where('user').equals(req.session.username)
         var itemValues = [];
         var transValues = [];
         var blocks = []
         if (resp) {
-            Transaction.scan().loadAll().exec(function(err2, resp2) {
-                if (resp2) {                   
-                    Block.scan().loadAll().exec(function(err3, resp3) {
-                        if (resp3) {
-                            items = resp.Items;
-                            var size = Object.keys(items).length;
-                            for (var i = 0; i < size; i++) {
-                                itemValues.push(items[i].attrs);
-                            }
+            items = resp.Items;
+            var size = Object.keys(items).length;
+            for (var i = 0; i < size; i++) {
+                itemValues.push(items[i].attrs);
+            }
 
-                            items2 = resp2.Items;
-                            items2.sort(function(a, b) {
-                                return parseFloat(b.attrs.block) - parseFloat(a.attrs.block);
-                            });
-                            var size2 = Object.keys(items2).length;
-                            for (var j = 0; j < size2; j++) {
-                                transValues.push(items2[j].attrs);
-                            }
-
-                            items3 = resp3.Items;
-                            items3.sort(function(a, b) {
-                                return parseFloat(b.attrs.hash) - parseFloat(a.attrs.hash);
-                            });
-                            var size3 = Object.keys(items3).length;
-                            for (var k = 0; k < size3; k++) {
-                                blocks.push(items3[k].attrs);
-                            }
-                        }
-                        res.render('index.ejs', {
-                            name: req.session.username , blocks : blocks, balance: value , error: req.session.message, items : itemValues, userID : req.session.userID, transactions : transValues
-                        });
-                    })
-                }
-                
+            res.render('index.ejs', {
+                name: req.session.username,
+                error: req.session.message,
+                items : itemValues,
+                userID : req.session.userID,
+                transactions : transValues,
+                accountNum : accountNum
             });
         }
     })
+        }
+    });
+
+
+
+    
 }
 
 /* GET about page. */
