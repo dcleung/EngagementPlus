@@ -3,6 +3,7 @@
 <head>
   <title>Engagement+</title>
   <base href="/">
+  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
@@ -50,9 +51,11 @@
   </div>
 
   <h2>Output:</h2>
-  <div id="output">--</div>
-
-
+    <div id="output" style = "width:200">
+      <ul class = "list-group" id = "output_text" style = "overflow: auto; max-height: 50px; width: 200px;">
+        --
+      </ul>
+   </div>
   </div>
 </div>
 

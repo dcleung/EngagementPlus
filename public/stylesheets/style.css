@@ -2,6 +2,14 @@
     animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
 }
 
+body {
+    zoom: 100% !important;
+}
+
+.list-group-item {
+    padding: 3px 10px
+}
+
 @keyframes blinker {  
   from { opacity: 1; }
   to { opacity: 0; }
