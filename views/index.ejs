@@ -7,6 +7,7 @@
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script src="/javascript/speech_to_text.js"></script>
 </head>
 
 <header class="cf ph3">
@@ -44,9 +45,11 @@
   <div>
     <label for="inputName" class="f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="mick w1 v-mid red" id="microphone"></i></label>
 
-    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white">Start</button>
+    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white" onclick= "startStream()">Start</button>
       <button id="stop" class="stop tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
   </div>
+
+
   </div>
 </div>
 
@@ -80,13 +83,16 @@
   <div class="tc">
 
     <h1 class="f4 mt0">Current Chat Log:</h1>
+    <div id="output" style = "width:200">
+      <ul class = "list-group" id = "output_text" style = "overflow: auto; max-height: 250px; width: 350px;"> </ul>
+   </div>
 
   </div>
 </article>
 
 
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 20px; width: 1000px; height: 300px">
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="overflow: auto; float: left; margin-left: 20px; width: 2000px; height: 300px">
 <div class="pa3 tl">
   <h2 class="mb0 mt5">Try these prompts:</h2>
   <table class="w-1000 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
@@ -108,7 +114,7 @@
 </div>
 </article>
 
-<div id="map" style="width: 1000px; height: 700px"></div>
+<div id="map" style="width: 600px; height: 400px; margin-left: 40px;"></div>
 
 <script>
   feather.replace()
