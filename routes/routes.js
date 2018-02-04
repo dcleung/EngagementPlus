@@ -7,22 +7,22 @@ var creds = require('./credentials.json');
 vogels.AWS.config.update({accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey, region: "us-east-1"});
 var request = require('request');
 
-// var mysql      = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : 'localhost',
-//   user     : 'root',
-//   password : 'root',
-//   database : 'sys'
-// });
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'sys'
+});
 
-// connection.connect(function(err) {
-//   if (err) {
-//     console.error('error connecting: ' + err.stack);
-//     return;
-//   }
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
  
-//   console.log('connected as id ' + connection.threadId);
-// });
+  console.log('connected as id ' + connection.threadId);
+});
 
 
 // Employee Accounts Table
@@ -104,30 +104,30 @@ var getHome = function(req, res) {
          'X-Api-Key': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnV2ZXNoZWVyYW4iLCJleHAiOjE1MTg1NjEyNTR9.kTlsWaJafTDX3KThRyI11xj_LoWsBLavOZXLuajzvQ5VSCiaXZZSTZMpnzsiChxiMnxhPj4l5yy1gSaClxklzA',
         Accept: 'application/json' } };
 
-    // var transQ = "SELECT `amount`, longitude, latitude, forename, last_name, sex, title, phone_number, email_id from sys.person " +
-    //     "left join sys.phone_number  on (sys.person.party_id = sys.phone_number.party_id) " +
-    //     "left join sys.email on (sys.email.party_id = sys.person.party_id) " +
-    //     "left join sys.transaction on (sys.transaction.account_id = sys.person.party_id) " + 
-    //     "where sys.person.party_id = " + accountNum + " order by transaction_date limit 20";
-    // var body = {};
+    var transQ = "SELECT `amount`, longitude, latitude, forename, last_name, sex, title, phone_number, email_id from sys.person " +
+        "left join sys.phone_number  on (sys.person.party_id = sys.phone_number.party_id) " +
+        "left join sys.email on (sys.email.party_id = sys.person.party_id) " +
+        "left join sys.transaction on (sys.transaction.account_id = sys.person.party_id) " + 
+        "where sys.person.party_id = " + accountNum + " order by transaction_date limit 20";
+    var body = {};
 
-    // connection.query(transQ, function (error, personal, fields) {
-    //     if (error) throw error;
-    //     //console.log(personal);
+    connection.query(transQ, function (error, personal, fields) {
+        if (error) throw error;
+        //console.log(personal);
 
-    //     trans = [];
+        trans = [];
 
-    //     for(var i = 0; i < personal.length; i++){
-    //         var loc = {
-    //             'amount' : personal[i].amount,
-    //             'latitude' : personal[i].latitude,
-    //             'longitude' : personal[i].longitude
-    //         }
-    //         trans.push(loc);
-    //     }
+        for(var i = 0; i < personal.length; i++){
+            var loc = {
+                'amount' : personal[i].amount,
+                'latitude' : personal[i].latitude,
+                'longitude' : personal[i].longitude
+            }
+            trans.push(loc);
+        }
 
-    //     var stringy = JSON.stringify(trans);
-    //     console.log(stringy);
+        var stringy = JSON.stringify(trans);
+        console.log(stringy);
 
         request(options, function (error, response, body) {
         if (error) {
@@ -153,15 +153,15 @@ var getHome = function(req, res) {
                 transactions : transValues,
                 accountNum : accountNum,
                 data : body,
-                customer_name: "Wei Zhang", //personal[0].forename + " " + personal[0].last_name,
-                email: "microsoft.recruitment2018@gmail.com", //personal[0].email_id,
-                phone: "208-????", //personal[0].phone_number,
-                trans: ""//stringy
+                customer_name: personal[0].forename + " " + personal[0].last_name,
+                email: personal[0].email_id,
+                phone: personal[0].phone_number,
+                trans: stringy
             });
         }
         })
         }
-    //}) MAKE SURE TO UNDO THIS
+    })
     });
     
 }
