@@ -6,6 +6,7 @@ var AWS = require('aws-sdk');
 var creds = require('./credentials.json');
 vogels.AWS.config.update({accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey, region: "us-east-1"});
 var request = require('request');
+var regression = require('regression');
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
@@ -104,11 +105,11 @@ var getHome = function(req, res) {
          'X-Api-Key': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcnV2ZXNoZWVyYW4iLCJleHAiOjE1MTg1NjEyNTR9.kTlsWaJafTDX3KThRyI11xj_LoWsBLavOZXLuajzvQ5VSCiaXZZSTZMpnzsiChxiMnxhPj4l5yy1gSaClxklzA',
         Accept: 'application/json' } };
 
-    var transQ = "SELECT `amount`, longitude, latitude, forename, last_name, sex, title, phone_number, email_id from sys.person " +
+    var transQ = "SELECT `amount`, balance, transaction_date, longitude, latitude, forename, last_name, sex, title, phone_number, email_id from sys.person " +
         "left join sys.phone_number  on (sys.person.party_id = sys.phone_number.party_id) " +
         "left join sys.email on (sys.email.party_id = sys.person.party_id) " +
         "left join sys.transaction on (sys.transaction.account_id = sys.person.party_id) " + 
-        "where sys.person.party_id = " + accountNum + " order by transaction_date limit 20";
+        "where sys.person.party_id = " + accountNum + " order by transaction_date desc limit 50";
     var body = {};
 
     connection.query(transQ, function (error, personal, fields) {
@@ -116,8 +117,12 @@ var getHome = function(req, res) {
         //console.log(personal);
 
         trans = [];
+        graph = [];
+        training = [];
 
-        for(var i = 0; i < personal.length; i++){
+        graph.push(['Date', 'Balance', 'Model']);
+
+        for(var i = 0; i < 20; i++){
             var loc = {
                 'amount' : personal[i].amount,
                 'latitude' : personal[i].latitude,
@@ -126,8 +131,26 @@ var getHome = function(req, res) {
             trans.push(loc);
         }
 
+        for(var i = 0; i < personal.length; i++){
+            var regre = [personal.length - i, personal[i].balance];
+            training.push(regre);
+        }
+
+        var result = regression.polynomial(training, {order : 4});
+        
+
+        for(var i = 0; i < personal.length; i++){
+            var points = [personal[i].transaction_date, personal[i].balance, result.predict(personal.length - i)[1]];
+            console.log(result.predict(personal.length - i)[1]);
+            graph.push(points);
+        }
+
+
         var stringy = JSON.stringify(trans);
-        console.log(stringy);
+        //console.log(stringy);
+
+        var graphy = JSON.stringify(graph);
+        //console.log(graphy);
 
         request(options, function (error, response, body) {
         if (error) {
@@ -156,7 +179,8 @@ var getHome = function(req, res) {
                 customer_name: personal[0].forename + " " + personal[0].last_name,
                 email: personal[0].email_id,
                 phone: personal[0].phone_number,
-                trans: stringy
+                trans: stringy,
+                graph: graphy
             });
         }
         })

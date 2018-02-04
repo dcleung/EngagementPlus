@@ -8,6 +8,33 @@
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
   <script src="/javascript/speech_to_text.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = "<%= graph %>";
+        var a = data.replace(/&#34;/g, "\"");
+        var parsed = JSON.parse(a);
+
+        console.log(parsed);
+
+
+        var data = google.visualization.arrayToDataTable(parsed);
+
+        var options = {
+          title: 'Account Balance',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
 </head>
 
@@ -280,9 +307,10 @@
 </div>
 
 <br>
-<div style="text-align: center; margin-top: 0px !important; display: inline-block;">
+<div style="text-align: center; margin-top: 0px !important; margin-bottom: 20px">
 <h2 class="mb0 mt5" style = "padding-left : 20px; text-align: center; width : 1200px;">Spending History:</h2>
-<div id="map" style="width: 1200px; height: 600px; margin-left: 40px; margin-right: 40px; margin-top: 20px !important"></div>
+<div id="map" style="width: 550px; height: 350px; margin-left: 40px; margin-right: 40px; margin-top: 20px !important; display: inline-block;"></div>
+<div id="curve_chart" style="width: 550px; height: 350px; display: inline-block;"></div>
 </div>
 
 <script>
