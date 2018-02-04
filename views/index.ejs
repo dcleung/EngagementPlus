@@ -3,7 +3,6 @@
 <head>
   <title>Engagement+</title>
   <base href="/">
-  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
@@ -20,7 +19,7 @@
       <img src="https://www.famousbirthdays.com/faces/pederson-doug-image.jpg" class="br-100 h2 w2 ba dib" alt="avatar">
       <ul class="dib list pl0">
         <li class="link b f7"><%= name %></li>
-        <li class="link">Score: 0</li>
+        <li class="link"><i>Associate</i></li>
       </ul>
     </div>
   </nav>
@@ -33,14 +32,14 @@
 
     <form id="searchform" method="get" accept-charset="utf-8">
         <div class="input-group input-group-lg">
-            <input type="number" class="input-reset ba b--black-20 pa3 db" id="searchbox" name="account" placeholder="Account ID" aria-describedby="inputName-desc">
+            <input type="number" class="input-reset ba b--black-20 pa3 " id="searchbox" name="account" placeholder="Account ID" aria-describedby="inputName-desc">
+          
           <button class="tc b mh3 ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white">
             <span class="pr1">Search</span>
-            <i data-feather="search" width="16" class="w6 v-mid"></i>
+            <i data-feather="search" width="12" height="12" class="w6 v-mid"></i>
           </button>
         </div>
     </form>
-
   </div>
 
   <div>
@@ -50,16 +49,11 @@
       <button id="stop" class="stop tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
   </div>
 
-  <h2>Output:</h2>
-    <div id="output" style = "width:200">
-      <ul class = "list-group" id = "output_text" style = "overflow: auto; max-height: 50px; width: 200px;">
-        --
-      </ul>
-   </div>
+
   </div>
 </div>
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 20px; width: 400px">
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 40px; width: 400px; height: 300px">
   <div class="tc">
 
     <h1 class="f4 mt0">You are currently helping:</h1>
@@ -97,26 +91,46 @@
       <label class="f7 b ttc dark-gray db mb2 mt1">Local TD Bank Address:</label>
       <td class="pv2 ph3"><%= JSON.parse(data).businessUnit.address %></td>
     </div>
-
-    <button type="submit" class="tc b ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white" name="new-job">Make transaction</button>
   </form>
   <% } %>
 </article>
 
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 20px; width: 400px; height: 300px">
+  <div class="tc">
+
+    <h1 class="f4 mt0">Current Chat Log:</h1>
+    <div id="output" style = "width:200">
+      <ul class = "list-group" id = "output_text" style = "overflow: auto; max-height: 250px; width: 350px;"> </ul>
+   </div>
+
+  </div>
+</article>
+
+
+
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="overflow: auto; float: left; margin-left: 20px; width: 2000px; height: 300px">
 <div class="pa3 tl">
   <h2 class="mb0 mt5">Try these prompts:</h2>
-  <table class="w-50 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
+  <table class="w-1000 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
+      <thead>
+        <tr class="stripe-dark">
+          <th class="fw6 tl pa3 bg-white">Keyword</th>
+          <th class="fw6 tl pa3 bg-white">Prompt</th>
+        </tr>
+      </thead>
     <tbody>
       <% for(var i=0; i < 5; i++) { %>
       <tr class="striped--near-white">
+        <td class="pv2 ph3">Eagles are going to win the Superbowl!</td>
         <td class="pv2 ph3"><%= items[i].createdAt %></td>
       </tr>
       <% } %>
     </tbody>
   </table>
 </div>
+</article>
 
-<div id="map" style="width: 1000px; height: 700px"></div>
+<div id="map" style="width: 600px; height: 400px; margin-left: 40px;"></div>
 
 <script>
   feather.replace()
