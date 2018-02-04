@@ -6,6 +6,9 @@ var AWS = require('aws-sdk');
 var creds = require('./credentials.json');
 vogels.AWS.config.update({accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey, region: "us-east-1"});
 var request = require('request');
+//require('./heatmap.js')
+//require('./gmaps-heatmap.js')
+
 
 // Employee Accounts Table
 var Account = vogels.define('Account', {
@@ -108,13 +111,9 @@ var getHome = function(req, res) {
                 accountNum : accountNum
             });
         }
-    })
+        })
         }
     });
-
-
-
-    
 }
 
 /* GET about page. */
