@@ -2,13 +2,39 @@
     animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
 }
 
+.list-group{
+	padding-left:0px !important;
+}
 .list-group-item {
-    padding: 3px 10px
+    padding: 3px 0px
 }
 
-@keyframes blinker {  
-  from { opacity: 1; }
-  to { opacity: 0; }
+.list-group-item {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px 0;
+}
+
+.list-group-item::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.list-group-item img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.list-group-item img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
 }
 
 /* Fonts */
