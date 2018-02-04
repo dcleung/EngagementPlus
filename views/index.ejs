@@ -61,18 +61,25 @@
 
   </div>
   <p class="lh-copy measure center f6 black-70 mt3">
-  </p><form action="/posttransaction" method="post">
-
+  </p>
+    <%if (data && JSON.parse(data).businessUnit && JSON.parse(data).accountType) { %>
     <div class="mb4">
       <label class="f7 ttc dark-gray db mb2 mt1"><b>Account ID:</b> <%= accountNum %></label>
     </div>
 
     <div class="mb4">
-      <label class="f7 b ttc dark-gray db mb2 mt1">Address:</label>
+      <label class="f7 b ttc dark-gray db mb2 mt1">Account Type:</label>
+      <td class="pv2 ttc ph3"><%= JSON.parse(data).accountType.accountType %></td>
+    </div>
+
+    <div class="mb4">
+      <label class="f7 b ttc dark-gray db mb2 mt1">Local TD Bank Address:</label>
+      <td class="pv2 ph3"><%= JSON.parse(data).businessUnit.address %></td>
     </div>
 
     <button type="submit" class="tc b ph4 pv3 input-reset ba pa4 b--black bg-transparent grow pointer f6 bg-animate hover-bg-black hover-white" name="new-job">Make transaction</button>
   </form>
+  <% } %>
 </article>
 
 <div class="pa3 tl">

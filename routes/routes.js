@@ -73,6 +73,9 @@ var getHome = function(req, res) {
     console.log(req.query.account);
 
     var accountNum = req.query.account;
+    if (!accountNum) {
+        accountNum = 22;
+    }
 
     var queryURL = 'https://api-wufthacks.xlabs.one:8243/td/account/V1.0.0/account/' + accountNum;
     console.log(queryURL)
@@ -92,10 +95,10 @@ var getHome = function(req, res) {
         } else {
             console.log(body);
             Job.scan().loadAll().exec(function(err, resp) { // .where('user').equals(req.session.username)
-        var itemValues = [];
-        var transValues = [];
-        var blocks = []
-        if (resp) {
+            var itemValues = [];
+            var transValues = [];
+            var blocks = []
+            if (resp) {
             items = resp.Items;
             var size = Object.keys(items).length;
             for (var i = 0; i < size; i++) {
@@ -108,7 +111,8 @@ var getHome = function(req, res) {
                 items : itemValues,
                 userID : req.session.userID,
                 transactions : transValues,
-                accountNum : accountNum
+                accountNum : accountNum,
+                data : body
             });
         }
         })
