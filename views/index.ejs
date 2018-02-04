@@ -13,7 +13,6 @@
 <header class="cf ph3">
   <h1 class="fl-ns mb0 mt3 pt1"><a href="" class="link green hover-dark-green">Engagement<span class="dib-l dib-m dn"></span>+ Dashboard</a></h1>
   <nav class="fr-ns">
-    <a href="/visualizer" class="b link dark-gray hover-green" style="padding-bottom: .95rem;"> <i data-feather="eye"></i></a>
     <a href="/about" class="b link dark-gray hover-green ml3 mr4"><i data-feather="help-circle"></i></a>
     <div class="dib">
       <img src="https://www.famousbirthdays.com/faces/pederson-doug-image.jpg" class="br-100 h2 w2 ba dib" alt="avatar">
@@ -53,14 +52,13 @@
   </div>
 </div>
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 40px; width: 400px; height: 300px">
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="overflow: auto;  margin-top: 30px; float: left; margin-left: 40px; width: 400px; height: 300px">
   <div class="tc">
 
     <h1 class="f4 mt0">You are currently helping:</h1>
 
   </div>
-  <p class="lh-copy measure center f6 black-70 mt3">
-  </p>
+  <p class="lh-copy measure f6 black-70 mt3"></p>
     <%if (data && JSON.parse(data).businessUnit && JSON.parse(data).accountType) { %>
 
     <div class="mb4">
@@ -83,8 +81,7 @@
     </div>
 
     <div class="mb4">
-      <label class="f7 b ttc dark-gray db mb2 mt1">Account Type:</label>
-      <td class="pv2 ttc ph3"><%= JSON.parse(data).accountType.accountType %></td>
+      <label class="f7 ttc dark-gray db mb2 mt1"><b>Account Type:</b> <%= JSON.parse(data).accountType.accountType %> </label>
     </div>
 
     <div class="mb4">
@@ -95,11 +92,11 @@
   <% } %>
 </article>
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 20px; width: 400px; height: 300px">
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-top: 30px; margin-left: 20px; width: 900px; height: 300px">
   <div class="tc">
 
     <h1 class="f4 mt0">Current Chat Log:</h1>
-    <div id="output" style = "width:200">
+    <div id="output" style = "width:350">
       <ul class = "list-group" id = "output_text" style = "overflow: auto; max-height: 250px; width: 350px;"> </ul>
    </div>
 
@@ -108,29 +105,175 @@
 
 
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="overflow: auto; float: left; margin-left: 20px; width: 2000px; height: 300px">
-<div class="pa3 tl">
-  <h2 class="mb0 mt5">Try these prompts:</h2>
+<div class="pa3 br3 tl" style="margin-left: 980px; margin-top: -50px; width: 680px">
+  <h2 class="mb0 mt5">Try these suggestion topics:</h2>
   <table class="w-1000 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
       <thead>
         <tr class="stripe-dark">
-          <th class="fw6 tl pa3 bg-white">Keyword</th>
-          <th class="fw6 tl pa3 bg-white">Prompt</th>
+          <th class="fw6 tl pa3 bg-white">Topic</th>
+          <th class="fw6 tl pa3 bg-white">Suggestion</th>
         </tr>
       </thead>
     <tbody>
-      <% for(var i=0; i < 5; i++) { %>
+      <% if (accountNum % 6 == 0) { %>
       <tr class="striped--near-white">
-        <td class="pv2 ph3">Eagles are going to win the Superbowl!</td>
-        <td class="pv2 ph3"><%= items[i].createdAt %></td>
+        <td class="pv2 ph3">Football</td>
+        <td class="pv2 ph3">Are you excited for the football game?</td>
       </tr>
-      <% } %>
+
+      <tr class="striped--near-white">
+        <td class="pv2 ph3">Classes</td>
+        <td class="pv2 ph3">How are classes?</td>
+      </tr>
+
+      <tr class="striped--near-white">
+        <td class="pv2 ph3">Busy</td>
+        <td class="pv2 ph3">Have you been busy lately?</td>
+      </tr>
+
+      <tr class="striped--near-white">
+        <td class="pv2 ph3">Friday</td>
+        <td class="pv2 ph3">Are you excited for Friday?</td>
+      </tr>
+
+
+      <tr class="striped--near-white">
+        <td class="pv2 ph3">Burgers</td>
+        <td class="pv2 ph3">Do you recommend burgers?</td>
+      </tr>
+
+      <% } else if (accountNum % 6 == 1) {%>
+          <tr class="striped--near-white">
+            <td class="pv2 ph3">Will Smith</td>
+            <td class="pv2 ph3">What do you think of Will Smith?</td>
+          </tr>
+
+          <tr class="striped--near-white">
+            <td class="pv2 ph3">Lakers</td>
+            <td class="pv2 ph3">How are the Lakers?</td>
+          </tr>
+
+          <tr class="striped--near-white">
+            <td class="pv2 ph3">Stroller</td>
+            <td class="pv2 ph3">What do you think of stroller?</td>
+          </tr>
+
+          <tr class="striped--near-white">
+            <td class="pv2 ph3">Rap</td>
+            <td class="pv2 ph3">What is your favorite rap music?</td>
+          </tr>
+
+          <tr class="striped--near-white">
+            <td class="pv2 ph3">Hamburgers</td>
+            <td class="pv2 ph3">Do you recommend hamburgers?</td>
+          </tr>
+
+      <% } else if (accountNum % 6 == 2) {%>
+            <tr class="striped--near-white">
+              <td class="pv2 ph3">Star Wars</td>
+              <td class="pv2 ph3">What do you think of Star Wars?</td>
+            </tr>
+
+            <tr class="striped--near-white">
+              <td class="pv2 ph3">Comic-con</td>
+              <td class="pv2 ph3">How is comic-con?</td>
+            </tr>
+
+            <tr class="striped--near-white">
+              <td class="pv2 ph3">Reddit</td>
+              <td class="pv2 ph3">What do you think of reddit?</td>
+            </tr>
+
+            <tr class="striped--near-white">
+              <td class="pv2 ph3">Philadelphia</td>
+              <td class="pv2 ph3">What is your favorite thing to do in Philadelphia?</td>
+            </tr>
+
+            <tr class="striped--near-white">
+              <td class="pv2 ph3">University</td>
+              <td class="pv2 ph3">Do you like your university?</td>
+            </tr>
+      <% } else if (accountNum % 6 == 3) {%>
+            <tr class="striped--near-white">
+                <td class="pv2 ph3">Pistons</td>
+                <td class="pv2 ph3">What do you think of the Pistons?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">San Francisco</td>
+                <td class="pv2 ph3">What is your favorite thing to do in San Francisco?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Ford</td>
+                <td class="pv2 ph3">What do you think of Ford?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Hip Hop</td>
+                <td class="pv2 ph3">What is your favorite hip hop music?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Drake</td>
+                <td class="pv2 ph3">Do you recommend Drake?</td>
+              </tr>
+      <% } else if (accountNum % 6 == 4) {%>
+            <tr class="striped--near-white">
+                <td class="pv2 ph3">Eagles</td>
+                <td class="pv2 ph3">What do you think of eagles?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Philadelphia</td>
+                <td class="pv2 ph3">What is your favorite thing to do in Philadelphia?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Love</td>
+                <td class="pv2 ph3">What do you love?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Fly</td>
+                <td class="pv2 ph3">Do you enjoy flying?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Birds</td>
+                <td class="pv2 ph3">Do you enjoy watching birds?</td>
+              </tr>
+      <% } else {%>
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Hockey</td>
+                <td class="pv2 ph3">What do you think of hockey?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Swim</td>
+                <td class="pv2 ph3">What do you like about swimming?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Best</td>
+                <td class="pv2 ph3">What is best?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">The Office</td>
+                <td class="pv2 ph3">Do you enjoy the office?</td>
+              </tr>
+
+              <tr class="striped--near-white">
+                <td class="pv2 ph3">Computers</td>
+                <td class="pv2 ph3">Do you enjoy computers?</td>
+              </tr>
+      <% }  %>
     </tbody>
   </table>
 </div>
-</article>
 
-<div id="map" style="width: 600px; height: 400px; margin-left: 40px;"></div>
+<div id="map" style="width: 1400px; height: 400px; margin-left: 40px; margin-top: -20px"></div>
 
 <script>
   feather.replace()
