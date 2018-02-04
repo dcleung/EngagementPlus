@@ -62,6 +62,22 @@
   <p class="lh-copy measure center f6 black-70 mt3">
   </p>
     <%if (data && JSON.parse(data).businessUnit && JSON.parse(data).accountType) { %>
+
+    <div class="mb4">
+      <label class="f7 b ttc dark-gray db mb2 mt1">Customer Name:</label>
+      <td class="pv2 ph3"><%= customer_name %></td>
+    </div>
+
+    <div class="mb4">
+      <label class="f7 b ttc dark-gray db mb2 mt1">Phone Number:</label>
+      <td class="pv2 ph3"><%= phone %></td>
+    </div>
+
+    <div class="mb4">
+      <label class="f7 b ttc dark-gray db mb2 mt1">Email:</label>
+      <td class="pv2 ph3"><%= email %></td>
+    </div>
+
     <div class="mb4">
       <label class="f7 ttc dark-gray db mb2 mt1"><b>Account ID:</b> <%= accountNum %></label>
     </div>
@@ -455,10 +471,13 @@ function initMap() {
       }
     );
 
-    $.ajax(maps_options).done(function (response) {
-      console.log(response['content']);
-      setOverlay(jsonToData(response));
-    });
+    // $.ajax(maps_options).done(function (response) {
+    //   console.log(response['content']);
+      
+    // });
+
+    setOverlay(jsonToData());
+    console.log(jsonToData());
         
 }
 
@@ -477,19 +496,26 @@ function setOverlay(data) {
     });
 }
 
-function jsonToData(d) {
+function jsonToData() {
     var heatmapData = [];
-    for (let o of d['content']) {
+
+    console.log(heatmapData);
+    var data = "<%= trans %>";
+    var r = data.replace(/&#34;/g, "\"");
+    var parsed = JSON.parse(r);
+
+    for (var i = 0; i < parsed.length; i++) {
 
         //var latLng = new google.maps.LatLng(lat, long);
         var v = {
-            lat: o['latitude'],
-            lng: o['longitude'],
-            weight: o['amount']
+            lat: parsed[i]['latitude'],
+            lng: parsed[i]['longitude'],
+            weight: parsed[i]['amount']
         }
         heatmapData.push(v);
     }
-    console.log(heatmapData)
+    
+    console.log(heatmapData);
     return heatmapData;
 }
 
