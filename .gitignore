@@ -160,4 +160,4 @@ typings/
 .env
 
 # hide aws keys
-# credentials.json
+credentials.json

@@ -70,9 +70,9 @@
   </div>
 
   <div>
-    <label for="inputName" class="f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="mick w1 v-mid red" id="microphone"></i></label>
+    <label for="inputName" class="mick microphone f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="mick w1 v-mid red" id="microphone"></i></label>
 
-    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white" onclick= "startStream()">Start</button>
+    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white">Start</button>
       <button id="stop" class="stop tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
   </div>
 
@@ -127,7 +127,7 @@
 
     <h1 class="f4 mt0">Current Chat Log:</h1>
     <div id="output" style = "width:200">
-      <ul class = "list-group" id = "output_text" style = "overflow: auto; width: 100%; height : 390px; list-style: none;">
+      <ul class = "list-group" id = "output_text" style = "overflow: auto; width: 100%; height : 362px; list-style: none;">
       </ul>
    </div>
 
@@ -135,7 +135,7 @@
 </article>
 
 
-<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 10px; width: 500px; height: auto; margin-top: 20px !important">
+<article class="mw6 tc bg-white br3 pa3 pa4-ns mb3 mt6 ba b--black-10" style="float: left; margin-left: 10px; width: 500px; height: 484px; margin-top: 20px !important">
 <div class="pa3 tl" style = "padding: 0px">
   <h2 class="mb0 mt5" style = "margin-top: 0px !important">Try these prompts:</h2>
   <table class="w-1000 collapse ba tl br2 b--black-10 pv2 ph3 mt2 mb5">
@@ -272,7 +272,7 @@
 
               <tr class="striped--near-white">
                 <td class="pv2 ph3">Birds</td>
-                <td class="pv2 ph3">Do you enjoy watching birds?</td>
+                <td class="pv2 ph3">Do you like birds?</td>
               </tr>
       <% } else {%>
               <tr class="striped--near-white">
@@ -307,7 +307,7 @@
 </div>
 
 <br>
-<div style="text-align: center; margin-top: 0px !important; margin-bottom: 20px">
+<div style="text-align: center; margin-top: -100px !important; margin-bottom: 20px">
 <h2 class="mb0 mt5" style = "padding-left : 20px; text-align: center; width : 1200px;">Spending History:</h2>
 <div id="map" style="width: 550px; height: 350px; margin-left: 40px; margin-right: 40px; margin-top: 20px !important; display: inline-block;"></div>
 <div id="curve_chart" style="width: 550px; height: 350px; display: inline-block;"></div>
@@ -315,6 +315,18 @@
 
 <script>
   feather.replace()
+  $('.start').on('click',function(){
+    $('.microphone').addClass("Blink");
+    $('.mick').addClass("Blink");
+
+    startStream();
+  });
+
+  $('.stop').on('click',function(){
+    $('.microphone').removeClass("Blink");
+    $('.mick').removeClass("Blink");
+
+  });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -609,15 +621,13 @@ var maps_options = {
   }
 }
 
+
+
 $(document).ready(function() {
   initMap();
-    $('.start').on('click',function(){
-    $('#microphone').addClass("Blink");
-  });
 
-  $('.stop').on('click',function(){
-    $('#microphone').removeClass("Blink");
-  });
+
+
 
 })
 

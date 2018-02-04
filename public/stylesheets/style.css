@@ -1,5 +1,10 @@
 .Blink {
-    animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+    animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+}
+
+@keyframes blinker {  
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .list-group{
