@@ -7,6 +7,7 @@
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.1/css/tachyons.min.css"/>
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script src="/javascript/speech_to_text.js"></script>
 </head>
 
 <header class="cf ph3">
@@ -44,7 +45,7 @@
   <div>
     <label for="inputName" class="f7 b ttu gray db mb2 mt1">Recording <i data-feather="mic" width="16" class="mick w1 v-mid red" id="microphone"></i></label>
 
-    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white">Start</button>
+    <button id="start" class="start tc b ph4 pv3 input-reset ba pa4 bg-green b--green grow pointer f6 bg-animate hover-bg-dark-green white hover-white" onclick= "startStream()">Start</button>
       <button id="stop" class="stop tc b ph4 pv3 input-reset ba pa4 bg-red b--red grow pointer f6 bg-animate hover-bg-dark-red white hover-white">Stop</button>
   </div>
 
