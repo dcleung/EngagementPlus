@@ -122,7 +122,7 @@ var getHome = function(req, res) {
 
         graph.push(['Date', 'Balance', 'Model']);
 
-        for(var i = 0; i < 20; i++){
+        for(var i = 30; i < 50; i++){
             var loc = {
                 'amount' : personal[i].amount,
                 'latitude' : personal[i].latitude,
